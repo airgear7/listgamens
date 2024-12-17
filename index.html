@@ -69,9 +69,9 @@
 
                     // Add footer input for column search
                     const footerCell = document.createElement("th");
-                    //if (header !== "Action") {
+                    if (header !== "ACTION") {
                         footerCell.innerHTML = `<input type="text" placeholder="Search ${header}" />`;
-                    //}
+                    }
                     tableFooter.appendChild(footerCell);
                 });
 
@@ -81,7 +81,7 @@
                     headers.forEach(header => {
                         const td = document.createElement("td");
 
-                        if (header === "Action") {
+                        if (header === "ACTION") {
                             // Create button for the "Action" column
                             const button = document.createElement("button");
                             button.textContent = "Go to URL";
