@@ -87,7 +87,7 @@
                             button.style.cursor = "pointer";
 
                             // Define the URL logic here
-                            const url = row["URL"]; // Replace "URL" with the column name containing the link
+                            const url = row["ACTION"]; // Replace "URL" with the column name containing the link
                             button.onclick = () => window.open(url, "_blank");
 
                             td.appendChild(button);
