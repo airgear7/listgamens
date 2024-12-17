@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Sheets Data Viewer with Column Search</title>
+    <title>Google Sheets Data Viewer with Buttons</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -45,7 +45,7 @@
         const googleSheetURL = "https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/export?format=csv";
 
         // Ganti {SPREADSHEET_ID} dengan ID Google Sheets Anda
-        const csvURL = googleSheetURL.replace("{SPREADSHEET_ID}", "1AoBL-QibTvkj0PIhFxx_IG0AEOSmQGkS");
+        const csvURL = googleSheetURL.replace("{SPREADSHEET_ID}", "YOUR_SPREADSHEET_ID");
 
         // Fetch and parse CSV data
         fetch(csvURL)
@@ -61,7 +61,7 @@
 
                 // Add table headers
                 const headers = Object.keys(rows[0]);
-                headers.push("GAMEPLAY"); // Add an "Action" column for the button
+                headers.push("Action"); // Add an "Action" column for the button
                 headers.forEach(header => {
                     const th = document.createElement("th");
                     th.textContent = header;
@@ -69,7 +69,7 @@
 
                     // Add footer input for column search
                     const footerCell = document.createElement("th");
-                    if (header !== "GAMEPLAY") {
+                    if (header !== "Action") {
                         footerCell.innerHTML = `<input type="text" placeholder="Search ${header}" />`;
                     }
                     tableFooter.appendChild(footerCell);
@@ -81,7 +81,7 @@
                     headers.forEach(header => {
                         const td = document.createElement("td");
 
-                        if (header === "GAMEPLAY") {
+                        if (header === "Action") {
                             // Create button for the "Action" column
                             const button = document.createElement("button");
                             button.textContent = "Go to URL";
