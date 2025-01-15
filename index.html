@@ -85,9 +85,9 @@
     <h1>Data dari Google Sheets</h1>
     <div id="loading">Loading data...</div>
     <div id="column-selection">
-        <h3>Select Columns to Export:</h3>
+        <h3>Pilih Kolom Di Atas yang Akan Di Simpan</h3>
     </div>
-    <button id="export-btn">Export to Excel</button>
+    <button id="export-btn">Simpan Ke Excel</button>
     <table id="data-table" class="display responsive nowrap" style="width:100%; display: none;">
         <thead>
             <tr id="table-header"></tr>
@@ -226,7 +226,7 @@
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-            XLSX.writeFile(wb, 'selected_columns_data.xlsx');
+            XLSX.writeFile(wb, 'Daftar Game.xlsx');
         });
     </script>
 </body>
