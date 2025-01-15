@@ -116,7 +116,8 @@
                             button.style.cursor = "pointer";
 
                             // Define the URL logic here
-                            const url = row["ACTION"]; // Replace "URL" with the column name containing the link
+                            //const url = row["ACTION"]; // Replace "URL" with the column name containing the link
+                            const url = "https://www.google.com/search?q="+row["JUDUL"]+" SWITCH";
                             button.onclick = () => window.open(url, "_blank");
 
                             td.appendChild(button);
