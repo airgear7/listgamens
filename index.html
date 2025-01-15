@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <!-- Add xlsx library for export to Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.2/xlsx.full.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,11 +28,26 @@
             width: 100%;
             box-sizing: border-box;
         }
+        #export-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #export-btn:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
     <h1>Data dari Google Sheets</h1>
     <div id="loading">Loading data...</div>
+    <button id="export-btn">Export to Excel</button>
     <table id="data-table" class="display" style="width:100%; display: none;">
         <thead>
             <tr id="table-header"></tr>
@@ -120,6 +137,38 @@
                 console.error("Error fetching or parsing data:", error);
                 document.getElementById("loading").textContent = "Failed to load data.";
             });
+
+        // Export to Excel function
+        document.getElementById('export-btn').addEventListener('click', function() {
+            const table = document.getElementById('data-table');
+            const rows = [];
+            const header = [];
+            const dataRows = table.querySelectorAll('tbody tr');
+
+            // Get table headers
+            table.querySelectorAll('thead th').forEach(th => {
+                header.push(th.textContent.trim());
+            });
+
+            // Get table body rows
+            dataRows.forEach(tr => {
+                const row = [];
+                tr.querySelectorAll('td').forEach(td => {
+                    row.push(td.textContent.trim());
+                });
+                rows.push(row);
+            });
+
+            // Create a worksheet
+            const ws = XLSX.utils.aoa_to_sheet([header, ...rows]);
+
+            // Create a workbook
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+            // Export as Excel
+            XLSX.writeFile(wb, 'data.xlsx');
+        });
     </script>
 </body>
 </html>
