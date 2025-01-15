@@ -42,11 +42,22 @@
         #export-btn:hover {
             background-color: #45a049;
         }
+        #column-selection {
+            margin: 10px 0;
+            text-align: center;
+        }
+        .column-checkbox {
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
     <h1>Data dari Google Sheets</h1>
     <div id="loading">Loading data...</div>
+    <div id="column-selection">
+        <h3>Select Columns to Export:</h3>
+        <!-- Dynamically generated checkboxes will appear here -->
+    </div>
     <button id="export-btn">Export to Excel</button>
     <table id="data-table" class="display" style="width:100%; display: none;">
         <thead>
@@ -76,8 +87,9 @@
                 const tableFooter = document.getElementById("table-footer");
                 const tableBody = document.querySelector("#data-table tbody");
 
-                // Add table headers
                 const headers = Object.keys(rows[0]);
+
+                // Add table headers
                 headers.forEach(header => {
                     const th = document.createElement("th");
                     th.textContent = header;
@@ -132,6 +144,22 @@
                         }
                     });
                 });
+
+                // Create checkboxes for column selection
+                const columnSelectionDiv = document.getElementById("column-selection");
+                headers.forEach((header, index) => {
+                    const checkboxLabel = document.createElement("label");
+                    checkboxLabel.className = "column-checkbox";
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.checked = true; // Default to checked
+                    checkbox.id = `column-${index}`;
+                    checkbox.dataset.columnIndex = index;
+                    checkboxLabel.appendChild(checkbox);
+                    checkboxLabel.appendChild(document.createTextNode(header));
+                    columnSelectionDiv.appendChild(checkboxLabel);
+                });
+
             })
             .catch(error => {
                 console.error("Error fetching or parsing data:", error);
@@ -145,16 +173,19 @@
             const header = [];
             const dataRows = table.querySelectorAll('tbody tr');
 
-            // Get table headers
-            table.querySelectorAll('thead th').forEach(th => {
-                header.push(th.textContent.trim());
+            // Get selected columns
+            const selectedColumns = Array.from(document.querySelectorAll("#column-selection input:checked")).map(input => parseInt(input.dataset.columnIndex));
+
+            // Get table headers (only selected columns)
+            selectedColumns.forEach(index => {
+                header.push(table.querySelectorAll('thead th')[index].textContent.trim());
             });
 
-            // Get table body rows
+            // Get table body rows (only selected columns)
             dataRows.forEach(tr => {
                 const row = [];
-                tr.querySelectorAll('td').forEach(td => {
-                    row.push(td.textContent.trim());
+                selectedColumns.forEach(index => {
+                    row.push(tr.querySelectorAll('td')[index].textContent.trim());
                 });
                 rows.push(row);
             });
@@ -167,7 +198,7 @@
             XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
             // Export as Excel
-            XLSX.writeFile(wb, 'data.xlsx');
+            XLSX.writeFile(wb, 'selected_columns_data.xlsx');
         });
     </script>
 </body>
