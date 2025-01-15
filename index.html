@@ -57,6 +57,28 @@
         tr:nth-child(odd) {
             background-color: #ffffff;
         }
+
+        /* Responsiveness for the table */
+        .dataTable {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* Responsive styles for smaller screens */
+        @media (max-width: 768px) {
+            table.dataTable {
+                width: 100%;
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+
+        /* To ensure buttons don't overflow on small screens */
+        button {
+            max-width: 150px;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -66,7 +88,7 @@
         <h3>Select Columns to Export:</h3>
     </div>
     <button id="export-btn">Export to Excel</button>
-    <table id="data-table" class="display" style="width:100%; display: none;">
+    <table id="data-table" class="display responsive nowrap" style="width:100%; display: none;">
         <thead>
             <tr id="table-header"></tr>
         </thead>
@@ -144,7 +166,9 @@
                 const dataTable = document.getElementById("data-table");
                 dataTable.style.display = "table";
 
-                const table = $(dataTable).DataTable();
+                const table = $(dataTable).DataTable({
+                    responsive: true  // Enable responsive feature of DataTables
+                });
 
                 table.columns().every(function () {
                     const that = this;
