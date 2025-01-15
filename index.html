@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <!-- Add xlsx library for export to Excel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.2/xlsx.full.min.js"></script>
     <style>
         body {
@@ -49,6 +48,15 @@
         .column-checkbox {
             margin: 5px;
         }
+
+        /* Zebra striping: warna bergantian untuk baris */
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
     </style>
 </head>
 <body>
@@ -56,7 +64,6 @@
     <div id="loading">Loading data...</div>
     <div id="column-selection">
         <h3>Select Columns to Export:</h3>
-        <!-- Dynamically generated checkboxes will appear here -->
     </div>
     <button id="export-btn">Export to Excel</button>
     <table id="data-table" class="display" style="width:100%; display: none;">
@@ -72,7 +79,6 @@
     <script>
         const googleSheetURL = "https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/export?format=csv";
 
-        // Ganti {SPREADSHEET_ID} dengan ID Google Sheets Anda
         const csvURL = googleSheetURL.replace("{SPREADSHEET_ID}", "1AoBL-QibTvkj0PIhFxx_IG0AEOSmQGkS");
 
         // Fetch and parse CSV data
@@ -103,40 +109,42 @@
                     tableFooter.appendChild(footerCell);
                 });
 
-                // Add table rows
-                rows.forEach(row => {
+                // Add table rows with alternating row colors
+                rows.forEach((row, index) => {
                     const tr = document.createElement("tr");
                     headers.forEach(header => {
                         const td = document.createElement("td");
 
                         if (header === "ACTION") {
-                            // Create button for the "Action" column
                             const button = document.createElement("button");
                             button.textContent = "View Gameplay";
                             button.style.cursor = "pointer";
-
-                            // Define the URL logic here
-                            //const url = row["ACTION"]; // Replace "URL" with the column name containing the link
-                            const url = "https://www.google.com/search?q="+row["JUDUL"]+" GAMEPLAY SWITCH&sca_esv=ec4e310bc6b52ebd&sxsrf=ADLYWIJvzSdPmks9efqBRc21DjswIzopiQ:1736922254553&source=hp&biw=1366&bih=657&ei=jlSHZ-zVH7OMseMP-IeNgAY&iflsig=AL9hbdgAAAAAZ4dinl4nFpWzQ7JbJnOkKlvk3P0FQ6v_&ved=0ahUKEwjs1O7Pi_eKAxUzRmwGHfhDA2AQ4dUDCBY&uact=5&oq=LEGO+HORIZON+ADVENTURES+switch&gs_lp=EgNpbWciHkxFR08gSE9SSVpPTiBBRFZFTlRVUkVTIHN3aXRjaDIEECMYJzIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAESOkVUABY0xJwAHgAkAEAmAE8oAG4A6oBATi4AQPIAQD4AQL4AQGKAgtnd3Mtd2l6LWltZ5gCCKAC4AOYAwCSBwE4oAfcOg&sclient=img&udm=2";
+                            const url = row["ACTION"];
                             button.onclick = () => window.open(url, "_blank");
-
                             td.appendChild(button);
                         } else {
                             td.textContent = row[header] || "";
                         }
+                        
                         tr.appendChild(td);
                     });
+
+                    // Apply alternating row colors dynamically
+                    if (index % 2 === 0) {
+                        tr.style.backgroundColor = "#f2f2f2"; // Light color for even rows
+                    } else {
+                        tr.style.backgroundColor = "#ffffff"; // White for odd rows
+                    }
+
                     tableBody.appendChild(tr);
                 });
 
-                // Show table and initialize DataTables
                 document.getElementById("loading").style.display = "none";
                 const dataTable = document.getElementById("data-table");
                 dataTable.style.display = "table";
 
                 const table = $(dataTable).DataTable();
 
-                // Add column-specific search functionality
                 table.columns().every(function () {
                     const that = this;
                     $('input', this.footer()).on('keyup change', function () {
@@ -174,15 +182,12 @@
             const header = [];
             const dataRows = table.querySelectorAll('tbody tr');
 
-            // Get selected columns
             const selectedColumns = Array.from(document.querySelectorAll("#column-selection input:checked")).map(input => parseInt(input.dataset.columnIndex));
 
-            // Get table headers (only selected columns)
             selectedColumns.forEach(index => {
                 header.push(table.querySelectorAll('thead th')[index].textContent.trim());
             });
 
-            // Get table body rows (only selected columns)
             dataRows.forEach(tr => {
                 const row = [];
                 selectedColumns.forEach(index => {
@@ -191,14 +196,11 @@
                 rows.push(row);
             });
 
-            // Create a worksheet
             const ws = XLSX.utils.aoa_to_sheet([header, ...rows]);
 
-            // Create a workbook
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-            // Export as Excel
             XLSX.writeFile(wb, 'selected_columns_data.xlsx');
         });
     </script>
