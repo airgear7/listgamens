@@ -12,6 +12,12 @@
   </header>
   
   <main>
+    <!-- Pencarian Game -->
+    <div>
+      <label for="search">Cari Game:</label>
+      <input type="text" id="search" placeholder="Cari berdasarkan nama game" oninput="searchGames()" />
+    </div>
+    
     <div>
       <label for="ordering">Urutkan Berdasarkan:</label>
       <select id="ordering" onchange="changeOrdering()">
@@ -26,7 +32,6 @@
     
     <div id="pagination">
       <button id="prev-page" onclick="changePage(-1)">Previous</button>
-      <span id="page-numbers"></span>  <!-- Nomor halaman akan ditampilkan di sini -->
       <button id="next-page" onclick="changePage(1)">Next</button>
     </div>
   </main>
