@@ -31,9 +31,9 @@ main {
 }
 
 .game-card img {
-  width: 250px; /* Tentukan lebar gambar */
-  height: 250px; /* Tentukan tinggi gambar */
-  object-fit: cover; /* Memastikan gambar tetap proporsional dan mengisi area */
+  width: 250px;
+  height: 350px;
+  object-fit: cover;
   border-radius: 8px;
 }
 
@@ -58,6 +58,9 @@ footer {
 #pagination {
   text-align: center;
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #pagination button {
@@ -71,4 +74,21 @@ footer {
 
 #pagination button:disabled {
   background-color: #ccc;
+}
+
+#page-numbers {
+  display: flex;
+  gap: 5px;
+}
+
+#page-numbers button {
+  padding: 5px 10px;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+#page-numbers button.active {
+  background-color: #333;
+  color: white;
 }
