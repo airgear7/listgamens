@@ -67,7 +67,7 @@ function changeOrdering() {
 
 // Fungsi untuk menangani input pencarian berdasarkan nama game
 function searchGames() {
-  searchQuery = document.getElementById('search').value;  // Ambil nilai input pencarian
+  searchQuery = document.getElementById('search').value.trim();  // Ambil nilai input pencarian
   currentPage = 1;  // Reset ke halaman pertama saat melakukan pencarian baru
   fetchGames();
 }
