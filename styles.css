@@ -73,22 +73,10 @@ footer {
   background-color: #ccc;
 }
 
-#page-numbers {
-  display: inline-block;
-  margin: 0 15px;
-}
-
-#page-numbers span {
-  padding: 5px 10px;
-  margin: 0 3px;
-  cursor: pointer;
-}
-
-#page-numbers span.active {
-  background-color: #333;
-  color: white;
-}
-
-#page-numbers span:hover {
-  background-color: #ddd;
+input[type="text"] {
+  padding: 8px;
+  margin: 10px 0;
+  width: 200px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
