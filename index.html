@@ -10,14 +10,30 @@
   <header>
     <h1>Daftar Game Nintendo Switch</h1>
   </header>
+  
   <main>
+    <div>
+      <label for="ordering">Urutkan Berdasarkan:</label>
+      <select id="ordering" onchange="changeOrdering()">
+        <option value="name">Nama (A-Z)</option>
+        <option value="-name">Nama (Z-A)</option>
+      </select>
+    </div>
+    
     <div id="game-list">
       <!-- Daftar game akan ditampilkan di sini -->
     </div>
+    
+    <div id="pagination">
+      <button id="prev-page" onclick="changePage(-1)">Previous</button>
+      <button id="next-page" onclick="changePage(1)">Next</button>
+    </div>
   </main>
+  
   <footer>
     <p>&copy; 2025 Daftar Game Nintendo Switch</p>
   </footer>
+  
   <script src="script.js"></script>
 </body>
 </html>
