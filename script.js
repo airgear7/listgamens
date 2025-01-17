@@ -23,7 +23,7 @@ async function fetchGames() {
       const gameCard = document.createElement('div');
       gameCard.classList.add('game-card');
       
-      const gameImage = game.background_image ? game.background_image : 'https://via.placeholder.com/250x350?text=No+Image';
+      const gameImage = game.background_image ? game.background_image : 'https://via.placeholder.com/250x250?text=No+Image';
       gameCard.innerHTML = `
         <img src="${gameImage}" alt="${game.name}">
         <h3>${game.name}</h3>
