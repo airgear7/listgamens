@@ -1,3 +1,4 @@
+/* styles.css */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -51,4 +52,22 @@ footer {
   color: #fff;
   text-align: center;
   padding: 10px;
+}
+
+#pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#pagination button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#pagination button:disabled {
+  background-color: #ccc;
 }
