@@ -60,25 +60,35 @@ footer {
   margin-top: 20px;
 }
 
-#page-numbers {
-  display: flex;
-  justify-content: center;
-  gap: 5px;
-}
-
-#page-numbers button {
-  padding: 5px 10px;
-  background-color: #ddd;
-  border: 1px solid #ccc;
+#pagination button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #333;
+  color: white;
+  border: none;
   cursor: pointer;
 }
 
-#page-numbers button.active {
+#pagination button:disabled {
+  background-color: #ccc;
+}
+
+#page-numbers {
+  display: inline-block;
+  margin: 0 15px;
+}
+
+#page-numbers span {
+  padding: 5px 10px;
+  margin: 0 3px;
+  cursor: pointer;
+}
+
+#page-numbers span.active {
   background-color: #333;
   color: white;
 }
 
-#page-numbers button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+#page-numbers span:hover {
+  background-color: #ddd;
 }
