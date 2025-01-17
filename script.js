@@ -1,6 +1,6 @@
 // script.js
 const apiKey = 'ea3359c7f16d4cc2b72313702ed37b24';  // Ganti dengan API key Anda
-const apiUrlBase = 'https://api.rawg.io/api/games?platforms=7&page_size=12&key=' + apiKey;
+const apiUrlBase = 'https://api.rawg.io/api/games?platforms=7&page_size=10&key=' + apiKey;
 let currentPage = 1;
 let currentOrdering = 'name';  // Default urutan berdasarkan nama (A-Z)
 let totalPages = 1;  // Jumlah total halaman
@@ -33,14 +33,36 @@ async function fetchGames() {
     });
 
     // Memperbarui nomor halaman yang aktif
-    document.getElementById('page-number').textContent = `Halaman ${currentPage}`;
+    updatePagination();
 
-    // Mengatur status tombol pagination
-    document.getElementById('prev-page').disabled = currentPage === 1;
-    document.getElementById('next-page').disabled = currentPage === totalPages;
   } catch (error) {
     console.error('Error fetching game data:', error);
   }
+}
+
+// Fungsi untuk memperbarui pagination
+function updatePagination() {
+  const pageNumbersElement = document.getElementById('page-numbers');
+  pageNumbersElement.innerHTML = ''; // Kosongkan dulu
+
+  // Tentukan nomor halaman yang akan ditampilkan
+  const startPage = Math.floor((currentPage - 1) / 10) * 10 + 1;
+  const endPage = Math.min(startPage + 9, totalPages);
+
+  for (let i = startPage; i <= endPage; i++) {
+    const pageButton = document.createElement('button');
+    pageButton.textContent = i;
+    pageButton.classList.add(i === currentPage ? 'active' : '');
+    pageButton.onclick = () => {
+      currentPage = i;
+      fetchGames();
+    };
+    pageNumbersElement.appendChild(pageButton);
+  }
+
+  // Mengatur status tombol pagination
+  document.getElementById('prev-page').disabled = currentPage === 1;
+  document.getElementById('next-page').disabled = currentPage === totalPages;
 }
 
 // Fungsi untuk mengubah halaman
