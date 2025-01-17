@@ -1,6 +1,6 @@
 // script.js
 const apiKey = 'ea3359c7f16d4cc2b72313702ed37b24';  // Ganti dengan API key Anda
-const apiUrlBase = 'https://api.rawg.io/api/games?platforms=7&page_size=10&key=' + apiKey;
+const apiUrlBase = 'https://api.rawg.io/api/games?platforms=6&page_size=10&key=' + apiKey;
 let currentPage = 1;
 let currentOrdering = 'name';  // Default urutan berdasarkan nama (A-Z)
 
