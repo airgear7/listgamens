@@ -1,6 +1,6 @@
 // script.js
 const apiKey = 'ea3359c7f16d4cc2b72313702ed37b24';  // Ganti dengan API key Anda
-const apiUrlBase = 'https://api.rawg.io/api/games?platforms=7&page_size=10&key=' + apiKey;
+const apiUrlBase = 'https://api.rawg.io/api/games?platforms=7&page_size=12&key=' + apiKey;
 let currentPage = 1;
 let currentOrdering = 'name';  // Default urutan berdasarkan nama (A-Z)
 let totalPages = 1;  // Jumlah total halaman
@@ -40,7 +40,7 @@ async function fetchGames() {
   }
 }
 
-// Fungsi untuk memperbarui pagination
+// Fungsi untuk memperbarui pagination dengan nomor halaman
 function updatePagination() {
   const pageNumbersElement = document.getElementById('page-numbers');
   pageNumbersElement.innerHTML = ''; // Kosongkan dulu
@@ -59,21 +59,6 @@ function updatePagination() {
     };
     pageNumbersElement.appendChild(pageButton);
   }
-
-  // Mengatur status tombol pagination
-  document.getElementById('prev-page').disabled = currentPage === 1;
-  document.getElementById('next-page').disabled = currentPage === totalPages;
-}
-
-// Fungsi untuk mengubah halaman
-function changePage(direction) {
-  currentPage += direction;
-
-  // Pastikan halaman tetap berada dalam batas yang valid
-  if (currentPage < 1) currentPage = 1;
-  if (currentPage > totalPages) currentPage = totalPages;
-
-  fetchGames();
 }
 
 // Fungsi untuk mengubah urutan berdasarkan nama
