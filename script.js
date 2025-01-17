@@ -3,6 +3,7 @@ const apiKey = 'ea3359c7f16d4cc2b72313702ed37b24';  // Ganti dengan API key Anda
 const apiUrlBase = 'https://api.rawg.io/api/games?platforms=7&page_size=12&key=' + apiKey;
 let currentPage = 1;
 let currentOrdering = 'name';  // Default urutan berdasarkan nama (A-Z)
+let totalPages = 1;  // Jumlah total halaman
 
 // Fungsi untuk mengambil data game
 async function fetchGames() {
@@ -10,6 +11,7 @@ async function fetchGames() {
     const response = await fetch(`${apiUrlBase}&page=${currentPage}&ordering=${currentOrdering}`);
     const data = await response.json();
     const games = data.results;
+    totalPages = Math.ceil(data.count / 10); // Menghitung total halaman berdasarkan jumlah game
 
     // Mengosongkan daftar game sebelum menambahkan yang baru
     const gameListElement = document.getElementById('game-list');
@@ -30,9 +32,12 @@ async function fetchGames() {
       gameListElement.appendChild(gameCard);
     });
 
+    // Memperbarui nomor halaman yang aktif
+    document.getElementById('page-number').textContent = `Halaman ${currentPage}`;
+
     // Mengatur status tombol pagination
     document.getElementById('prev-page').disabled = currentPage === 1;
-    document.getElementById('next-page').disabled = currentPage * 10 >= data.count;
+    document.getElementById('next-page').disabled = currentPage === totalPages;
   } catch (error) {
     console.error('Error fetching game data:', error);
   }
@@ -41,6 +46,11 @@ async function fetchGames() {
 // Fungsi untuk mengubah halaman
 function changePage(direction) {
   currentPage += direction;
+
+  // Pastikan halaman tetap berada dalam batas yang valid
+  if (currentPage < 1) currentPage = 1;
+  if (currentPage > totalPages) currentPage = totalPages;
+
   fetchGames();
 }
 
