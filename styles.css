@@ -58,26 +58,11 @@ footer {
 #pagination {
   text-align: center;
   margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#pagination button {
-  padding: 10px 20px;
-  margin: 0 10px;
-  background-color: #333;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-#pagination button:disabled {
-  background-color: #ccc;
 }
 
 #page-numbers {
   display: flex;
+  justify-content: center;
   gap: 5px;
 }
 
@@ -91,4 +76,9 @@ footer {
 #page-numbers button.active {
   background-color: #333;
   color: white;
+}
+
+#page-numbers button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
