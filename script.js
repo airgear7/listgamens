@@ -1,5 +1,5 @@
 // script.js
-const apiKey = 'YOUR_API_KEY';  // Ganti dengan kunci API yang valid dari RAWG API
+const apiKey = 'ea3359c7f16d4cc2b72313702ed37b24';  // Ganti dengan kunci API yang valid dari RAWG API
 const apiUrl = `https://api.rawg.io/api/games?platforms=7&page_size=10&key=${apiKey}`;  // Platform 7 = Nintendo Switch
 
 const gameListElement = document.getElementById('game-list');
