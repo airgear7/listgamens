@@ -1,14 +1,15 @@
 // script.js
 const apiKey = 'ea3359c7f16d4cc2b72313702ed37b24';  // Ganti dengan API key Anda
-const apiUrlBase = 'https://api.rawg.io/api/games?platforms=7&page_size=10&key=' + apiKey;
+const apiUrlBase = 'https://api.rawg.io/api/games?platforms=7&page_size=12&key=' + apiKey;
 let currentPage = 1;
 let currentOrdering = 'name';  // Default urutan berdasarkan nama (A-Z)
 let totalPages = 1;  // Jumlah total halaman
+let searchQuery = '';  // Variabel untuk kata kunci pencarian
 
 // Fungsi untuk mengambil data game
 async function fetchGames() {
   try {
-    const response = await fetch(`${apiUrlBase}&page=${currentPage}&ordering=${currentOrdering}`);
+    const response = await fetch(`${apiUrlBase}&page=${currentPage}&ordering=${currentOrdering}&search=${searchQuery}`);
     const data = await response.json();
     const games = data.results;
     totalPages = Math.ceil(data.count / 10); // Menghitung total halaman berdasarkan jumlah game
@@ -32,7 +33,7 @@ async function fetchGames() {
       gameListElement.appendChild(gameCard);
     });
 
-    // Memperbarui nomor halaman yang aktif
+    // Memperbarui status tombol Previous dan Next
     updatePagination();
 
   } catch (error) {
@@ -40,27 +41,8 @@ async function fetchGames() {
   }
 }
 
-// Fungsi untuk memperbarui pagination dengan nomor halaman
+// Fungsi untuk memperbarui status tombol Previous dan Next
 function updatePagination() {
-  const pageNumbersElement = document.getElementById('page-numbers');
-  pageNumbersElement.innerHTML = ''; // Kosongkan dulu
-
-  // Menentukan nomor halaman yang akan ditampilkan
-  const startPage = Math.floor((currentPage - 1) / 10) * 10 + 1;
-  const endPage = Math.min(startPage + 9, totalPages);
-
-  // Menampilkan nomor halaman
-  for (let i = startPage; i <= endPage; i++) {
-    const pageButton = document.createElement('span');
-    pageButton.textContent = i;
-    pageButton.classList.add(i === currentPage ? 'active' : '');
-    pageButton.onclick = () => {
-      currentPage = i;
-      fetchGames();
-    };
-    pageNumbersElement.appendChild(pageButton);
-  }
-
   // Mengatur status tombol Previous dan Next
   document.getElementById('prev-page').disabled = currentPage === 1;
   document.getElementById('next-page').disabled = currentPage === totalPages;
@@ -80,6 +62,13 @@ function changePage(direction) {
 // Fungsi untuk mengubah urutan berdasarkan nama
 function changeOrdering() {
   currentOrdering = document.getElementById('ordering').value;
+  fetchGames();
+}
+
+// Fungsi untuk menangani input pencarian
+function searchGames() {
+  searchQuery = document.getElementById('search').value.trim();  // Ambil nilai input pencarian
+  currentPage = 1;  // Reset ke halaman pertama saat melakukan pencarian baru
   fetchGames();
 }
 
