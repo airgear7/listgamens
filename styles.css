@@ -31,8 +31,9 @@ main {
 }
 
 .game-card img {
-  width: 100%;
-  height: auto;
+  width: 250px; /* Tentukan lebar gambar */
+  height: 350px; /* Tentukan tinggi gambar */
+  object-fit: cover; /* Memastikan gambar tetap proporsional dan mengisi area */
   border-radius: 8px;
 }
 
@@ -46,6 +47,8 @@ main {
   font-size: 0.9em;
   color: #777;
 }
+
+
 
 footer {
   background-color: #333;
