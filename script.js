@@ -1,10 +1,9 @@
-// script.js
-const apiKey = 'ea3359c7f16d4cc2b72313702ed37b24';  // Ganti dengan API key Anda
+const apiKey = 'ea3359c7f16d4cc2b72313702ed37b24';  
 const apiUrlBase = 'https://api.rawg.io/api/games?platforms=7&page_size=12&key=' + apiKey;
 let currentPage = 1;
-let currentOrdering = 'name';  // Default urutan berdasarkan nama (A-Z)
-let totalPages = 1;  // Jumlah total halaman
-let searchQuery = '';  // Variabel untuk kata kunci pencarian
+let currentOrdering = 'name';  
+let totalPages = 1;   
+let searchQuery = ''; 
 
 // Fungsi untuk mengambil data game
 async function fetchGames() {
@@ -13,8 +12,6 @@ async function fetchGames() {
     const data = await response.json();
     const games = data.results;
     totalPages = Math.ceil(data.count / 10); // Menghitung total halaman berdasarkan jumlah game
-
-    // Mengosongkan daftar game sebelum menambahkan yang baru
     const gameListElement = document.getElementById('game-list');
     gameListElement.innerHTML = '';
 
@@ -24,8 +21,8 @@ async function fetchGames() {
       gameCard.classList.add('game-card');
       
       const gameImage = game.background_image ? game.background_image : 'https://via.placeholder.com/250x250?text=No+Image';
-      
-      // Menampilkan platform dalam format yang lebih rapi
+
+      // Looping melalui platform dan menampilkannya
       const platforms = game.platforms.map(platform => platform.platform.name).join(', ');
 
       gameCard.innerHTML = `
@@ -46,3 +43,33 @@ async function fetchGames() {
   }
 }
 
+// Fungsi untuk memperbarui status tombol Previous dan Next
+function updatePagination() {
+  document.getElementById('prev-page').disabled = currentPage === 1;
+  document.getElementById('next-page').disabled = currentPage === totalPages;
+}
+
+// Fungsi untuk mengubah halaman
+function changePage(direction) {
+  currentPage += direction;
+  if (currentPage < 1) currentPage = 1;
+  if (currentPage > totalPages) currentPage = totalPages;
+
+  fetchGames();
+}
+
+// Fungsi untuk mengubah urutan berdasarkan nama
+function changeOrdering() {
+  currentOrdering = document.getElementById('ordering').value;
+  fetchGames();
+}
+
+// Fungsi untuk menangani input pencarian berdasarkan nama game
+function searchGames() {
+  searchQuery = document.getElementById('search').value.trim();  // Ambil nilai input pencarian
+  currentPage = 1;  // Reset ke halaman pertama saat melakukan pencarian baru
+  fetchGames();
+}
+
+// Memanggil fetchGames saat pertama kali halaman dimuat
+fetchGames();
