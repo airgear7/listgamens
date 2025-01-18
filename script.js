@@ -29,13 +29,13 @@ async function fetchGames() {
 
         // Menentukan URL ikon SVG platform berdasarkan nama platform
         if (platformName.includes('playstation 4')) {
-          iconUrl = 'https://cdn.jsdelivr.net/npm/simple-icons@v5.3.0/icons/playstation.svg';  // Ikon PlayStation
+          iconUrl = 'https://cdn.jsdelivr.net/npm/simple-icons@v5.3.0/icons/playstation4.svg';  // Ikon PlayStation
         } else if (platformName.includes('xbox one')) {
           iconUrl = 'https://cdn.jsdelivr.net/npm/simple-icons@v5.3.0/icons/xbox.svg';  // Ikon Xbox
         } else if (platformName.includes('pc')) {
           iconUrl = 'https://cdn.jsdelivr.net/npm/simple-icons@v5.3.0/icons/windows.svg';  // Ikon Windows
         } else if (platformName.includes('nintendo switch')) {
-          iconUrl = 'https://cdn.jsdelivr.net/npm/simple-icons@v5.3.0/icons/nintendo.svg';  // Ikon Nintendo
+          iconUrl = 'https://cdn.jsdelivr.net/npm/simple-icons@v5.3.0/icons/nintendoswitch.svg';  // Ikon Nintendo
         }
 
         // Menampilkan ikon platform jika ditemukan
