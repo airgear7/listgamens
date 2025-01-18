@@ -28,13 +28,13 @@ async function fetchGames() {
         let iconClass = '';
 
         // Menentukan ikon platform berdasarkan nama platform
-        if (platformName.includes('playstation')) {
+        if (platformName.includes('playstation 4')) {
           iconClass = 'fab fa-playstation';  // Ikon PlayStation dari FontAwesome
-        } else if (platformName.includes('xbox')) {
+        } else if (platformName.includes('xbox one')) {
           iconClass = 'fab fa-xbox';  // Ikon Xbox dari FontAwesome
         } else if (platformName.includes('pc')) {
           iconClass = 'fas fa-laptop';  // Ikon PC dari FontAwesome
-        } else if (platformName.includes('nintendo')) {
+        } else if (platformName.includes('nintendo switch')) {
           iconClass = 'fab fa-nintendo-switch';  // Ikon Nintendo dari FontAwesome
         }
 
