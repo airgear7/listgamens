@@ -22,13 +22,19 @@ async function fetchGames() {
       
       const gameImage = game.background_image ? game.background_image : 'https://via.placeholder.com/250x250?text=No+Image';
 
-      // Looping melalui platform dan menampilkannya
-      const platforms = game.platforms.map(platform => platform.platform.name).join(', ');
+      // Mengambil logo platform
+      const platformLogos = game.platforms.map(platform => platform.platform.logo ? platform.platform.logo.url : '').filter(url => url !== '').join(', ');
+
+      // Menampilkan logo-platform dalam elemen gambar
+      const logosHTML = game.platforms.map(platform => {
+        const logoUrl = platform.platform.logo ? platform.platform.logo.url : '';
+        return logoUrl ? `<img src="${logoUrl}" alt="${platform.platform.name}" class="platform-logo">` : '';
+      }).join('');
 
       gameCard.innerHTML = `
         <img src="${gameImage}" alt="${game.name}">
         <h3>${game.name}</h3>
-        <p><strong>Platforms:</strong> ${platforms}</p>
+        <div class="platform-logos">${logosHTML}</div>
         <p><strong>Release Date:</strong> ${game.released}</p>
       `;
       
