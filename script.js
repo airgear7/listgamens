@@ -58,7 +58,7 @@ async function fetchGames() {
       gameCard.innerHTML = `
         <img src="${gameImage}" alt="${game.name}">
         <h3>${game.name}</h3>
-        <p><strong>Genre:</strong>${genreList}</p>
+        <p><strong>Genre:</strong> ${genreList}</p>
         <div class="platform-logos">${logosHTML}</div>
         <p><strong>Release Date:</strong> ${game.released}</p>
       `;
