@@ -13,7 +13,7 @@ async function fetchGames() {
     const response = await fetch(`${apiUrlBase}&page=${currentPage}&ordering=${currentOrdering}&search=${searchQuery}`);
     const data = await response.json();
     const games = data.results;
-    totalPages = Math.ceil(data.count / 10); // Menghitung total halaman berdasarkan jumlah game
+    totalPages = Math.ceil(data.count / 12); // Menghitung total halaman berdasarkan jumlah game
     const gameListElement = document.getElementById('game-list');
     gameListElement.innerHTML = '';
 
