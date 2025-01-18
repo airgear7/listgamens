@@ -49,9 +49,9 @@ main {
 }
 
 .platform-logos img {
-  width: 40px;  /* Ukuran logo platform */
+  width: 20px;  /* Ukuran logo platform */
   height: auto;  /* Menjaga proporsi gambar */
-  margin-right: 10px;  /* Jarak antar ikon */
+  margin-right: 5px;  /* Jarak antar ikon */
 }
 
 
