@@ -22,12 +22,23 @@ async function fetchGames() {
       
       const gameImage = game.background_image ? game.background_image : 'https://via.placeholder.com/250x250?text=No+Image';
 
-      // Mengambil logo platform
-      const platformLogos = game.platforms.map(platform => platform.platform.logo ? platform.platform.logo.url : '').filter(url => url !== '').join(', ');
-
-      // Menampilkan logo-platform dalam elemen gambar
+      // Menampilkan logo platform (gambar ikon) sesuai dengan platform yang ada
       const logosHTML = game.platforms.map(platform => {
-        const logoUrl = platform.platform.logo ? platform.platform.logo.url : '';
+        const platformName = platform.platform.name.toLowerCase();
+        let logoUrl = '';
+
+        // Menentukan logo platform berdasarkan nama platform
+        if (platformName.includes('playstation')) {
+          logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/2/26/PlayStation_logo.png';  // Contoh logo PlayStation
+        } else if (platformName.includes('xbox')) {
+          logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Xbox_Logo.png';  // Contoh logo Xbox
+        } else if (platformName.includes('pc')) {
+          logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/4/4d/Windows_logo_2021.png';  // Contoh logo PC (Windows)
+        } else if (platformName.includes('nintendo')) {
+          logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/1/19/Nintendo_logo.png';  // Contoh logo Nintendo
+        }
+        
+        // Jika logo ditemukan, tampilkan
         return logoUrl ? `<img src="${logoUrl}" alt="${platform.platform.name}" class="platform-logo">` : '';
       }).join('');
 
