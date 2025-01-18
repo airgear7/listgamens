@@ -10,7 +10,7 @@ let selectedGenre = '';  // Variabel untuk genre yang dipilih
 async function fetchGames() {
   try {
     // Membuat URL dengan parameter pencarian judul game dan genre
-    if ${selectedGenre} == '' {
+    if selectedGenre == '' {
       const response = await fetch(`${apiUrlBase}&page=${currentPage}&ordering=${currentOrdering}&search=${searchQuery}`);
     } else {
       const response = await fetch(`${apiUrlBase}&page=${currentPage}&ordering=${currentOrdering}&search=${searchQuery}&genres=${selectedGenre}`);
