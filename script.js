@@ -4,14 +4,16 @@ let currentPage = 1;
 let currentOrdering = 'name';  
 let totalPages = 1;   
 let searchQuery = ''; 
+let selectedGenre = '';  // Variabel untuk genre yang dipilih
 
 // Fungsi untuk mengambil data game
 async function fetchGames() {
   try {
-    const response = await fetch(`${apiUrlBase}&page=${currentPage}&ordering=${currentOrdering}&search=${searchQuery}`);
+    // Membuat URL dengan parameter pencarian judul game dan genre
+    const response = await fetch(`${apiUrlBase}&page=${currentPage}&ordering=${currentOrdering}&search=${searchQuery}&genres=${selectedGenre}`);
     const data = await response.json();
     const games = data.results;
-    totalPages = Math.ceil(data.count / 12); // Menghitung total halaman berdasarkan jumlah game
+    totalPages = Math.ceil(data.count / 10); // Menghitung total halaman berdasarkan jumlah game
     const gameListElement = document.getElementById('game-list');
     gameListElement.innerHTML = '';
 
@@ -88,5 +90,35 @@ function searchGames() {
   fetchGames();
 }
 
+// Fungsi untuk menangani pemilihan genre
+function filterByGenre() {
+  selectedGenre = document.getElementById('genre').value;  // Ambil nilai genre yang dipilih
+  currentPage = 1;  // Reset ke halaman pertama saat memilih genre baru
+  fetchGames();
+}
+
 // Memanggil fetchGames saat pertama kali halaman dimuat
 fetchGames();
+
+// Memanggil genre list saat pertama kali halaman dimuat
+async function fetchGenres() {
+  try {
+    const response = await fetch('https://api.rawg.io/api/genres?key=' + apiKey);
+    const data = await response.json();
+    const genres = data.results;
+    const genreSelectElement = document.getElementById('genre');
+
+    // Menambahkan genre ke dropdown list
+    genres.forEach(genre => {
+      const option = document.createElement('option');
+      option.value = genre.id;
+      option.textContent = genre.name;
+      genreSelectElement.appendChild(option);
+    });
+  } catch (error) {
+    console.error('Error fetching genre data:', error);
+  }
+}
+
+// Memanggil fetchGenres untuk menambahkan genre ke dropdown list
+fetchGenres();
