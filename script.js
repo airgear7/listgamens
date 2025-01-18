@@ -24,11 +24,15 @@ async function fetchGames() {
       gameCard.classList.add('game-card');
       
       const gameImage = game.background_image ? game.background_image : 'https://via.placeholder.com/250x250?text=No+Image';
+      
+      // Menampilkan platform dalam format yang lebih rapi
+      const platforms = game.platforms.map(platform => platform.platform.name).join(', ');
+
       gameCard.innerHTML = `
         <img src="${gameImage}" alt="${game.name}">
         <h3>${game.name}</h3>
-        <p>${game.platforms}</p>
-        <p>${game.released}</p>
+        <p><strong>Platforms:</strong> ${platforms}</p>
+        <p><strong>Release Date:</strong> ${game.released}</p>
       `;
       
       gameListElement.appendChild(gameCard);
@@ -42,36 +46,3 @@ async function fetchGames() {
   }
 }
 
-// Fungsi untuk memperbarui status tombol Previous dan Next
-function updatePagination() {
-  // Mengatur status tombol Previous dan Next
-  document.getElementById('prev-page').disabled = currentPage === 1;
-  document.getElementById('next-page').disabled = currentPage === totalPages;
-}
-
-// Fungsi untuk mengubah halaman
-function changePage(direction) {
-  currentPage += direction;
-
-  // Pastikan halaman tetap berada dalam batas yang valid
-  if (currentPage < 1) currentPage = 1;
-  if (currentPage > totalPages) currentPage = totalPages;
-
-  fetchGames();
-}
-
-// Fungsi untuk mengubah urutan berdasarkan nama
-function changeOrdering() {
-  currentOrdering = document.getElementById('ordering').value;
-  fetchGames();
-}
-
-// Fungsi untuk menangani input pencarian berdasarkan nama game
-function searchGames() {
-  searchQuery = document.getElementById('search').value.trim();  // Ambil nilai input pencarian
-  currentPage = 1;  // Reset ke halaman pertama saat melakukan pencarian baru
-  fetchGames();
-}
-
-// Mengambil data game saat pertama kali halaman dimuat
-fetchGames();
