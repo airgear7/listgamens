@@ -25,21 +25,21 @@ async function fetchGames() {
       // Menampilkan logo platform (gambar ikon) sesuai dengan platform yang ada
       const logosHTML = game.platforms.map(platform => {
         const platformName = platform.platform.name.toLowerCase();
-        let logoUrl = '';
+        let iconClass = '';
 
-        // Menentukan logo platform berdasarkan nama platform
-        if (platformName.includes('playStation 4')) {
-          logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/2/26/PlayStation_logo.png';  // Contoh logo PlayStation
-        } else if (platformName.includes('xbox one')) {
-          logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Xbox_Logo.png';  // Contoh logo Xbox
+        // Menentukan ikon platform berdasarkan nama platform
+        if (platformName.includes('playstation')) {
+          iconClass = 'fab fa-playstation';  // Ikon PlayStation dari FontAwesome
+        } else if (platformName.includes('xbox')) {
+          iconClass = 'fab fa-xbox';  // Ikon Xbox dari FontAwesome
         } else if (platformName.includes('pc')) {
-          logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/4/4d/Windows_logo_2021.png';  // Contoh logo PC (Windows)
-        } else if (platformName.includes('nintendo switch')) {
-          logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/1/19/Nintendo_logo.png';  // Contoh logo Nintendo
+          iconClass = 'fas fa-laptop';  // Ikon PC dari FontAwesome
+        } else if (platformName.includes('nintendo')) {
+          iconClass = 'fab fa-nintendo-switch';  // Ikon Nintendo dari FontAwesome
         }
-        
-        // Jika logo ditemukan, tampilkan
-        return logoUrl ? `<img src="${logoUrl}" alt="${platform.platform.name}" class="platform-logo">` : '';
+
+        // Menampilkan ikon platform jika ditemukan
+        return iconClass ? `<i class="${iconClass} platform-logo"></i>` : '';
       }).join('');
 
       gameCard.innerHTML = `
