@@ -9,15 +9,20 @@ let selectedGenre = '';  // Variabel untuk genre yang dipilih
 // Fungsi untuk mengambil data game
 async function fetchGames() {
   try {
-    // Membuat URL dengan parameter pencarian judul game dan genre
+    let response;
+
+    // Mengecek apakah genre dipilih atau tidak
     if (selectedGenre === '') {
-      const response = await fetch(`${apiUrlBase}&page=${currentPage}&ordering=${currentOrdering}&search=${searchQuery}`);
+      // Jika tidak ada genre yang dipilih
+      response = await fetch(`${apiUrlBase}&page=${currentPage}&ordering=${currentOrdering}&search=${searchQuery}`);
     } else {
-      const response = await fetch(`${apiUrlBase}&page=${currentPage}&ordering=${currentOrdering}&search=${searchQuery}&genres=${selectedGenre}`);
-    //}
+      // Jika ada genre yang dipilih
+      response = await fetch(`${apiUrlBase}&page=${currentPage}&ordering=${currentOrdering}&search=${searchQuery}&genres=${selectedGenre}`);
+    }
+
     const data = await response.json();
     const games = data.results;
-    totalPages = Math.ceil(data.count / 10); // Menghitung total halaman berdasarkan jumlah game
+    totalPages = Math.ceil(data.count / 12); // Menghitung total halaman berdasarkan jumlah game
     const gameListElement = document.getElementById('game-list');
     gameListElement.innerHTML = '';
 
