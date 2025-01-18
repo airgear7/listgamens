@@ -28,13 +28,13 @@ async function fetchGames() {
         let logoUrl = '';
 
         // Menentukan logo platform berdasarkan nama platform
-        if (platformName.includes('playstation')) {
+        if (platformName.includes('PlayStation 4')) {
           logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/2/26/PlayStation_logo.png';  // Contoh logo PlayStation
-        } else if (platformName.includes('xbox')) {
+        } else if (platformName.includes('Xbox One')) {
           logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Xbox_Logo.png';  // Contoh logo Xbox
-        } else if (platformName.includes('pc')) {
+        } else if (platformName.includes('PC')) {
           logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/4/4d/Windows_logo_2021.png';  // Contoh logo PC (Windows)
-        } else if (platformName.includes('nintendo')) {
+        } else if (platformName.includes('Nintendo Switch')) {
           logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/1/19/Nintendo_logo.png';  // Contoh logo Nintendo
         }
         
