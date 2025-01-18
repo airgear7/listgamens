@@ -95,6 +95,7 @@ function searchGames() {
 // Fungsi untuk menangani perubahan pemilihan platform
 function changePlatformFilter() {
   selectedPlatform = document.getElementById('platform-filter').value;  // Ambil nilai platform yang dipilih
+  alert(selectedPlatform);
   currentPage = 1;  // Reset ke halaman pertama saat memilih platform baru
   fetchGames();
 }
