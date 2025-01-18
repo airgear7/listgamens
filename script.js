@@ -53,9 +53,12 @@ async function fetchGames() {
         return iconUrl ? `<img src="${iconUrl}" alt="${platform.platform.name}" class="platform-logo">` : '';
       }).join('');
 
+      const genreList = game.genres.map(genre => genre.name).join(', ');  // Menggabungkan genre dengan koma
+
       gameCard.innerHTML = `
         <img src="${gameImage}" alt="${game.name}">
         <h3>${game.name}</h3>
+        <p><strong>Genre:</strong>${genreList}</p>
         <div class="platform-logos">${logosHTML}</div>
         <p><strong>Release Date:</strong> ${game.released}</p>
       `;
