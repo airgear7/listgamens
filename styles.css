@@ -48,9 +48,10 @@ main {
   color: #777;
 }
 
-.platform-logos img {
-  width: 40px; /* Ukuran logo */
-  margin-right: 10px; /* Jarak antar logo */
+.platform-logos i {
+  font-size: 30px; /* Ukuran ikon */
+  margin-right: 10px; /* Jarak antar ikon */
+  color: #333; /* Warna ikon */
 }
 
 
