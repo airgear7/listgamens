@@ -4,7 +4,6 @@ let currentPage = 1;
 let currentOrdering = 'name';  
 let totalPages = 1;   
 let searchQuery = ''; 
-let selectedPlatform = '';  // Platform yang dipilih oleh pengguna
 
 // Fungsi untuk mengambil data game
 async function fetchGames() {
@@ -12,7 +11,7 @@ async function fetchGames() {
     // Menambahkan filter platform jika ada platform yang dipilih
     const platformFilter = selectedPlatform ? `&platforms=${selectedPlatform}` : '';
     
-    const response = await fetch(`${apiUrlBase}&page=${currentPage}&ordering=${currentOrdering}&search=${searchQuery}${platformFilter}`);
+    const response = await fetch(`${apiUrlBase}&page=${currentPage}&ordering=${currentOrdering}&search=${searchQuery}`);
     const data = await response.json();
     const games = data.results;
     totalPages = Math.ceil(data.count / 10); // Menghitung total halaman berdasarkan jumlah game
@@ -89,14 +88,6 @@ function changeOrdering() {
 function searchGames() {
   searchQuery = document.getElementById('search').value.trim();  // Ambil nilai input pencarian
   currentPage = 1;  // Reset ke halaman pertama saat melakukan pencarian baru
-  fetchGames();
-}
-
-// Fungsi untuk menangani perubahan pemilihan platform
-function changePlatformFilter() {
-  selectedPlatform = document.getElementById('platform-filter').value;  // Ambil nilai platform yang dipilih
-  alert(selectedPlatform);
-  currentPage = 1;  // Reset ke halaman pertama saat memilih platform baru
   fetchGames();
 }
 
