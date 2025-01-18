@@ -9,7 +9,6 @@ let searchQuery = '';
 async function fetchGames() {
   try {
     // Menambahkan filter platform jika ada platform yang dipilih
-    const platformFilter = selectedPlatform ? `&platforms=${selectedPlatform}` : '';
     
     const response = await fetch(`${apiUrlBase}&page=${currentPage}&ordering=${currentOrdering}&search=${searchQuery}`);
     const data = await response.json();
